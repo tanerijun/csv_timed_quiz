@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 
 	"github.com/tanerijun/csv_timed_quiz/csv_parser"
@@ -8,7 +9,13 @@ import (
 )
 
 func main() {
-	quizzes, err := csv_parser.Parse("quizzes/basic_math.csv")
+	// Handle flags
+	shufflePtr := flag.Bool("s", false, "Shuffle quizzes")
+	timePtr := flag.Int("t", 30, "Time limit for each question")
+	flag.Parse()
+	filePath := flag.Arg(0)
+
+	quizzes, err := csv_parser.Parse(filePath)
 	if err != nil {
 		panic(err)
 	}
@@ -17,12 +24,16 @@ func main() {
 	fmt.Println("You have _ seconds to answer each quiz.")
 	fmt.Println("Press any key to begin.")
 
-	fmt.Println(quizzes)
-	quiz_handler.Shuffle(quizzes)
-	fmt.Println(quizzes)
+	// TODO: DELETE (only placeholder)
+	fmt.Println(*shufflePtr)
+	fmt.Println(*timePtr)
 
-	// score := quiz_handler.Run(quizzes)
+	if *shufflePtr {
+		quiz_handler.Shuffle(quizzes)
+	}
 
-	// fmt.Println("Congratulations! You finished the quiz.")
-	// fmt.Printf("Your score is: %d/%d\n", score, len(quizzes))
+	score := quiz_handler.Run(quizzes)
+
+	fmt.Println("Congratulations! You finished the quiz.")
+	fmt.Printf("Your score is: %d/%d\n", score, len(quizzes))
 }
