@@ -3,7 +3,9 @@ package quiz_handler
 
 import (
 	"fmt"
+	"math/rand"
 	"strings"
+	"time"
 )
 
 // Function Run runs a quiz game based on the received parameter and returns a score.
@@ -33,4 +35,13 @@ func normalize(s string) string {
 	res := strings.Trim(s, "\t\n ")
 	res = strings.ToLower(res)
 	return res
+}
+
+// Function Shuffle shuffles quizzes
+func Shuffle(s [][]string) {
+	rand.Seed(time.Now().UnixNano())
+
+	rand.Shuffle(len(s), func(i, j int) {
+		s[i], s[j] = s[j], s[i]
+	})
 }

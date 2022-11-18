@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	quizzes, err := csv_parser.Parse("quizzes/mini_math.csv")
+	quizzes, err := csv_parser.Parse("quizzes/basic_math.csv")
 	if err != nil {
 		panic(err)
 	}
@@ -17,8 +17,12 @@ func main() {
 	fmt.Println("You have _ seconds to answer each quiz.")
 	fmt.Println("Press any key to begin.")
 
-	score := quiz_handler.Run(quizzes)
+	fmt.Println(quizzes)
+	quiz_handler.Shuffle(quizzes)
+	fmt.Println(quizzes)
 
-	fmt.Println("Congratulations! You finished the quiz.")
-	fmt.Printf("Your score is: %d/%d\n", score, len(quizzes))
+	// score := quiz_handler.Run(quizzes)
+
+	// fmt.Println("Congratulations! You finished the quiz.")
+	// fmt.Printf("Your score is: %d/%d\n", score, len(quizzes))
 }
