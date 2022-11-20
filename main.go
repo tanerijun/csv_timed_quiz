@@ -24,15 +24,11 @@ func main() {
 	fmt.Println("You have _ seconds to answer each quiz.")
 	fmt.Println("Press any key to begin.")
 
-	// TODO: DELETE (only placeholder)
-	fmt.Println(*shufflePtr)
-	fmt.Println(*timePtr)
-
 	if *shufflePtr {
 		quiz_handler.Shuffle(quizzes)
 	}
 
-	score := quiz_handler.Run(quizzes)
+	score := quiz_handler.Run(quizzes, *timePtr)
 
 	fmt.Println("Congratulations! You finished the quiz.")
 	fmt.Printf("Your score is: %d/%d\n", score, len(quizzes))

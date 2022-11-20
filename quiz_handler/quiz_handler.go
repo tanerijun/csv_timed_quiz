@@ -9,7 +9,7 @@ import (
 )
 
 // Function Run runs a quiz game based on the received parameter and returns a score.
-func Run(quizzes [][]string) int {
+func Run(quizzes [][]string, t int) int {
 	score := 0
 	for _, quiz := range quizzes {
 		fmt.Print(quiz[0], " = ")
