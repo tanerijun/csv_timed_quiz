@@ -2,8 +2,10 @@
 package quiz_handler
 
 import (
+	"bufio"
 	"fmt"
 	"math/rand"
+	"os"
 	"strings"
 	"time"
 )
@@ -14,12 +16,20 @@ type Quiz struct {
 }
 
 // Function Run runs a quiz game based on the received parameter and returns a score.
-func Run(quizzes []Quiz, t int) int {
+func Run(quizzes []Quiz, t int) (int, error) {
 	score := 0
 	for _, quiz := range quizzes {
 		fmt.Print(quiz.question, " = ")
+
 		var in string
-		fmt.Scan(&in)
+		scanner := bufio.NewScanner(os.Stdin)
+		for scanner.Scan() {
+			in = scanner.Text()
+			break
+		}
+		if err := scanner.Err(); err != nil {
+			return score, err
+		}
 
 		ans := normalize(quiz.answer)
 		in = normalize(in)
@@ -32,7 +42,7 @@ func Run(quizzes []Quiz, t int) int {
 		}
 	}
 
-	return score
+	return score, nil
 }
 
 // Function normalize trims whitespaces and lowercase a string.

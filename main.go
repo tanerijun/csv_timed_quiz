@@ -29,7 +29,10 @@ func main() {
 	fmt.Println("You have _ seconds to answer each quiz.")
 	fmt.Println("Press any key to begin.")
 
-	score := quiz_handler.Run(quizzes, *timePtr)
+	score, err := quiz_handler.Run(quizzes, *timePtr)
+	if err != nil {
+		panic(err)
+	}
 
 	fmt.Println("Congratulations! You finished the quiz.")
 	fmt.Printf("Your score is: %d/%d\n", score, len(quizzes))
