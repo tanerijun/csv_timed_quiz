@@ -15,18 +15,19 @@ func main() {
 	flag.Parse()
 	filePath := flag.Arg(0)
 
-	quizzes, err := csv_parser.Parse(filePath)
+	parsed, err := csv_parser.Parse(filePath)
 	if err != nil {
 		panic(err)
+	}
+
+	quizzes := quiz_handler.NewQuizzesFromSlice(parsed)
+	if *shufflePtr {
+		quiz_handler.Shuffle(quizzes)
 	}
 
 	fmt.Println("Welcome to csv_timed_quiz!")
 	fmt.Println("You have _ seconds to answer each quiz.")
 	fmt.Println("Press any key to begin.")
-
-	if *shufflePtr {
-		quiz_handler.Shuffle(quizzes)
-	}
 
 	score := quiz_handler.Run(quizzes, *timePtr)
 
