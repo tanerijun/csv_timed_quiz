@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 
 	"github.com/tanerijun/csv_timed_quiz/csv_parser"
 	"github.com/tanerijun/csv_timed_quiz/quiz_handler"
@@ -17,7 +18,7 @@ func main() {
 
 	parsed, err := csv_parser.Parse(filePath)
 	if err != nil {
-		panic(err)
+		exitWithError(err)
 	}
 
 	quizzes := quiz_handler.NewQuizzesFromSlice(parsed)
@@ -31,9 +32,15 @@ func main() {
 
 	score, err := quiz_handler.Run(quizzes, *timePtr)
 	if err != nil {
-		panic(err)
+		exitWithError(err)
 	}
 
 	fmt.Println("Congratulations! You finished the quiz.")
 	fmt.Printf("Your score is: %d/%d\n", score, len(quizzes))
+}
+
+func exitWithError(e error) {
+	fmt.Println("Oops! Something went wrong.")
+	fmt.Println("The program is terminated with the following error:")
+	log.Fatal(e)
 }
