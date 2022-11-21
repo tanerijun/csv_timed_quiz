@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/tanerijun/csv_timed_quiz/handler"
 	"github.com/tanerijun/csv_timed_quiz/parser"
@@ -11,12 +12,18 @@ import (
 
 func main() {
 	// Handle flags
-	shufflePtr := flag.Bool("s", false, "Shuffle quizzes")
-	timePtr := flag.Int("t", 30, "Time limit for each question")
+	shufflePtr := flag.Bool("s", false, "Whether to shuffle the quizzes or not. (default true)")
+	timePtr := flag.Int("t", 30, "Time limit for each question.")
+	filePathPtr := flag.String("f", "", "A file path to a csv file with \"question,answer\" format.")
 	flag.Parse()
-	filePath := flag.Arg(0)
 
-	parsed, err := parser.Parse(filePath)
+	if len(os.Args) < 2 {
+		fmt.Println("Invalid arguments provided.")
+		fmt.Println("Use the help flag (-h or --help) for instructions on how to use the program.")
+		os.Exit(1)
+	}
+
+	parsed, err := parser.Parse(*filePathPtr)
 	if err != nil {
 		exitWithError(err)
 	}
