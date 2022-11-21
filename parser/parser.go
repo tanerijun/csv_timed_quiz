@@ -1,5 +1,5 @@
 // Package csv_parser performs csv parsing through the exported function Parse
-package csv_parser
+package parser
 
 import (
 	"encoding/csv"

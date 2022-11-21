@@ -1,5 +1,5 @@
 // Package quiz_handler offers functions to work with quizzes
-package quiz_handler
+package handler
 
 import (
 	"bufio"
@@ -52,7 +52,7 @@ func normalize(s string) string {
 	return res
 }
 
-// Function Shuffle shuffles quizzes
+// Function Shuffle shuffles quizzes.
 func Shuffle(s []Quiz) {
 	rand.Seed(time.Now().UnixNano())
 
@@ -61,12 +61,12 @@ func Shuffle(s []Quiz) {
 	})
 }
 
-// Function New returns a new Quiz
+// Function New returns a new Quiz.
 func New(s []string) Quiz {
 	return Quiz{s[0], s[1]}
 }
 
-// Function NewQuizzesFromSlice takes in a slice of string, and returns a slice of Quiz
+// Function NewQuizzesFromSlice takes in a slice of string, and returns a slice of Quiz.
 func NewQuizzesFromSlice(s [][]string) []Quiz {
 	quizzes := make([]Quiz, len(s))
 	for i, v := range s {
