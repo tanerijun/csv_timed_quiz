@@ -47,7 +47,7 @@ func Run(quizzes []Quiz, t int) (int, error) {
 
 // Function normalize trims whitespaces and lowercase a string.
 func normalize(s string) string {
-	res := strings.Trim(s, "\t\n ")
+	res := strings.TrimSpace(s)
 	res = strings.ToLower(res)
 	return res
 }

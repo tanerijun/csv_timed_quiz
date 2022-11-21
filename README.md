@@ -9,6 +9,4 @@ And there is also a timer mechanism.
 TODO:
 
 - Timer
-- Also normalize the parsed csv
-- Use TrimSpace in fn normalize
 - Better exit on error
