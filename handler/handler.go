@@ -15,34 +15,55 @@ type Quiz struct {
 	answer   string
 }
 
+type Input struct {
+	input string
+	err   error
+}
+
 // Function Run runs a quiz game based on the received parameter and returns a score.
 func Run(quizzes []Quiz, t int) (int, error) {
 	score := 0
+	inCh := make(chan Input)
+
 	for _, quiz := range quizzes {
 		fmt.Print(quiz.question, " = ")
 
-		var in string
-		scanner := bufio.NewScanner(os.Stdin)
-		for scanner.Scan() {
-			in = scanner.Text()
-			break
-		}
-		if err := scanner.Err(); err != nil {
-			return score, err
-		}
+		timer := time.NewTimer(time.Duration(t) * time.Second)
+		go getInput(inCh)
 
-		ans := normalize(quiz.answer)
-		in = normalize(in)
+		select {
+		case in := <-inCh:
+			fmt.Println("in case1")
+			if in.err != nil {
+				return score, in.err
+			}
 
-		if in == ans {
-			score++
-			fmt.Println("Nice!")
-		} else {
-			fmt.Println("Oops!")
+			usrInput := in.input
+			ans := normalize(quiz.answer)
+			usrInput = normalize(usrInput)
+
+			if usrInput == ans {
+				score++
+				fmt.Println("Nice! You got it right.")
+			} else {
+				fmt.Println("Oops! Your answer is wrong.")
+			}
+		case <-timer.C:
+			fmt.Println("\nOops! You're out of time.")
 		}
 	}
 
 	return score, nil
+}
+
+func getInput(c chan Input) {
+	var in string
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+		in = scanner.Text()
+		break
+	}
+	c <- Input{in, scanner.Err()}
 }
 
 // Function normalize trims whitespaces and lowercase a string.

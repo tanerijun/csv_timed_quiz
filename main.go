@@ -13,7 +13,7 @@ import (
 func main() {
 	// Handle flags
 	shufflePtr := flag.Bool("s", false, "Whether to shuffle the quizzes or not. (default true)")
-	timePtr := flag.Int("t", 30, "Time limit for each question.")
+	timePtr := flag.Int("t", 10, "Time limit for each question.")
 	filePathPtr := flag.String("f", "", "A file path to a csv file with \"question,answer\" format.")
 	flag.Parse()
 

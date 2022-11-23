@@ -8,4 +8,4 @@ And there is also a timer mechanism.
 
 TODO:
 
-- Timer
+- Testing
