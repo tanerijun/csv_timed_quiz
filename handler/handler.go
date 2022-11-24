@@ -33,7 +33,6 @@ func Run(quizzes []Quiz, t int) (int, error) {
 
 		select {
 		case in := <-inCh:
-			fmt.Println("in case1")
 			if in.err != nil {
 				return score, in.err
 			}
@@ -59,10 +58,8 @@ func Run(quizzes []Quiz, t int) (int, error) {
 func getInput(c chan Input) {
 	var in string
 	scanner := bufio.NewScanner(os.Stdin)
-	for scanner.Scan() {
-		in = scanner.Text()
-		break
-	}
+	scanner.Scan()
+	in = scanner.Text()
 	c <- Input{in, scanner.Err()}
 }
 
