@@ -33,9 +33,8 @@ func main() {
 		handler.Shuffle(quizzes)
 	}
 
-	fmt.Println("Welcome to csv_timed_quiz!")
-	fmt.Println("You have _ seconds to answer each quiz.")
-	fmt.Println("Press any key to begin.")
+	fmt.Println("Quiz started!")
+	fmt.Printf("You have %d seconds to answer each quiz.\n", *timePtr)
 
 	score, err := handler.Run(quizzes, *timePtr)
 	if err != nil {
