@@ -58,8 +58,9 @@ func Run(quizzes []Quiz, t int) (int, error) {
 func getInput(c chan Input) {
 	var in string
 	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	in = scanner.Text()
+	if scanner.Scan() {
+		in = scanner.Text()
+	}
 	c <- Input{in, scanner.Err()}
 }
 
