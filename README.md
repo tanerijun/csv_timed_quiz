@@ -23,6 +23,12 @@ What is the capital of Japan?,Tokyo
 
 ## Usage
 
+First, make sure that [Go](https://go.dev/) is installed on your local machine. Then build the binary:
+
+```go
+go build .
+```
+
 Run the binary with `--help` flag for a more detailed instruction.
 
 - `-f` flag is a path to the csv quiz file.
@@ -35,7 +41,7 @@ Example:
 ./csv_timed_quiz -s -t=5 -f=quizzes/addition.csv
 ```
 
-Or if you have Go installed. You can also run the `main.go` file:
+Alternatively, you can also run the `main.go` file directly:
 
 ```
 go run main.go -s -t=5 -f=quizzes/addition.csv
